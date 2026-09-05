@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skill（技能）· 概念学习资料</title>
+<style>
+  :root{
+    --ink:#2b2a27; --muted:#6b6862; --line:#e6e2d9;
+    --paper:#fbfaf6; --card:#ffffff;
+    --brand:#2f6f4f; --brand-soft:#eaf3ee;
+    --accent:#b4652a; --accent-soft:#fbf0e6;
+    --note:#3a5f8a; --note-soft:#eaf1f8;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:16px;line-height:1.75}
+  .wrap{max-width:820px;margin:0 auto;padding:40px 22px 64px}
+  h1{font-size:30px;margin:0 0 6px}
+  .sub{color:var(--muted);margin:0 0 30px}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin-bottom:20px}
+  h2{font-size:19px;margin:0 0 14px;padding-left:11px;border-left:4px solid var(--brand)}
+  h3{font-size:16px;margin:18px 0 8px}
+  ul,ol{padding-left:22px;margin:8px 0}
+  li{margin-bottom:6px}
+  table{width:100%;border-collapse:collapse;margin-top:10px;font-size:15px}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+  th{background:var(--brand-soft);font-weight:600}
+  .warn{background:var(--note-soft);border-left:4px solid var(--note);border-radius:8px;padding:12px 15px;margin-top:14px}
+  figure{margin:16px 0;text-align:center}
+  figcaption{font-size:13px;color:var(--muted);margin-top:8px}
+  details{border:1px solid var(--line);border-radius:9px;padding:10px 14px;margin-top:9px}
+  summary{cursor:pointer;font-weight:600}
+  details p{margin:10px 0 2px;color:var(--muted)}
+  ol.src{padding-left:22px;font-size:15px}
+  ol.src li{margin-bottom:9px}
+  a{color:var(--note);word-break:break-all}
+  .q{background:var(--accent-soft);border-radius:9px;padding:10px 15px;margin:8px 0;font-size:15px}
+  pre{background:#f7f5ef;border:1px solid var(--line);border-radius:9px;padding:12px 14px;overflow-x:auto;font-size:14px;line-height:1.6}
+  code{font-family:"SF Mono",Menlo,Consolas,monospace}
+  .back{font-size:14px;margin-bottom:18px}
+  .back a{color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="back"><a href="index.html">← 返回学习资料目录</a></p>
+
+  <h1>Skill（技能）</h1>
+  <p class="sub">装在文件夹里的一本岗位手册，让通用 AI 临时变成某件事的熟手。</p>
+
+  <section>
+    <h2>学完你能做什么</h2>
+    <ul>
+      <li>说清 Skill 和普通提示词（Prompt）的本质区别</li>
+      <li>画出一个 Skill 文件夹里的东西，并解释"三级加载"是怎么回事</li>
+      <li>把一个你反复做的任务，写成一份能被复用的 Skill 说明</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>先问三个问题</h2>
+    <div class="q">1. 我每次都要跟 AI 重复一遍"记得用表格、记得标出处"，有没有办法只说一次？</div>
+    <div class="q">2. Skill 就是一个保存起来的提示词吗？</div>
+    <div class="q">3. 装了很多 Skill 之后，黑板（上下文）会不会被塞满？</div>
+  </section>
+
+  <section>
+    <h2>它像什么：书架上的岗位手册</h2>
+    <p>想象公司来了一位<strong>什么都会一点、但什么都不精</strong>的新同事。你没法每次都从头教他怎么做报销、怎么做会议纪要。于是你给他在书架上放了几本<strong>岗位手册</strong>。</p>
+    <p>平时他只扫一眼<strong>书脊上的书名</strong>（几乎不花力气）。只有当你真的说"帮我报销这笔差旅费"时，他才走过去把那本手册<strong>抽下来翻开</strong>；手册里写着"第 7 页有表格模板"，他才会<strong>再去翻第 7 页</strong>。</p>
+    <p>Skill 就是这套机制：手册平时不全摊开，用到了才打开。</p>
+
+    <figure>
+      <svg viewBox="0 0 720 240" width="100%" role="img" xmlns="http://www.w3.org/2000/svg">
+        <title>Skill 像书架上按需抽取的手册</title>
+        <desc>书架上有很多只露出书名的手册，只有被叫到名字的那一本会被抽下来翻开</desc>
+        <rect x="30" y="40" width="280" height="170" rx="12" fill="#f7f5ef" stroke="#b4b2a9" stroke-width="1"/>
+        <text x="170" y="66" text-anchor="middle" font-size="14" font-weight="600" fill="#2b2a27">书架：装了很多 Skill</text>
+
+        <rect x="52" y="84" width="46" height="96" rx="4" fill="#eaf1f8" stroke="#3a5f8a" stroke-width="1"/>
+        <text x="75" y="132" text-anchor="middle" font-size="11" fill="#2b2a27">写诗</text>
+        <rect x="106" y="84" width="46" height="96" rx="4" fill="#eaf1f8" stroke="#3a5f8a" stroke-width="1"/>
+        <text x="129" y="132" text-anchor="middle" font-size="11" fill="#2b2a27">改图</text>
+        <rect x="160" y="84" width="46" height="96" rx="4" fill="#eaf3ee" stroke="#2f6f4f" stroke-width="2"/>
+        <text x="183" y="132" text-anchor="middle" font-size="11" font-weight="600" fill="#2b2a27">报销</text>
+        <rect x="214" y="84" width="46" height="96" rx="4" fill="#eaf1f8" stroke="#3a5f8a" stroke-width="1"/>
+        <text x="237" y="132" text-anchor="middle" font-size="11" fill="#2b2a27">做表</text>
+        <rect x="268" y="84" width="24" height="96" rx="4" fill="#eae7dd" stroke="#b4b2a9" stroke-width="1"/>
+        <text x="170" y="200" text-anchor="middle" font-size="12" fill="#6b6862">平时只看得见书名，很省地方</text>
+
+        <path d="M320 132 L392 132" stroke="#2f6f4f" stroke-width="1.5" fill="none" marker-end="url(#e)"/>
+        <text x="356" y="122" text-anchor="middle" font-size="12" fill="#6b6862">被叫到</text>
+
+        <rect x="400" y="40" width="150" height="170" rx="10" fill="#eaf3ee" stroke="#2f6f4f" stroke-width="2"/>
+        <text x="475" y="68" text-anchor="middle" font-size="13" font-weight="600" fill="#2b2a27">抽下来翻开</text>
+        <rect x="418" y="82" width="114" height="26" rx="5" fill="#ffffff" stroke="#2f6f4f" stroke-width="1"/>
+        <text x="475" y="99" text-anchor="middle" font-size="12" fill="#2b2a27">第一步做什么</text>
+        <rect x="418" y="114" width="114" height="26" rx="5" fill="#ffffff" stroke="#2f6f4f" stroke-width="1"/>
+        <text x="475" y="131" text-anchor="middle" font-size="12" fill="#2b2a27">要注意什么</text>
+        <rect x="418" y="146" width="114" height="26" rx="5" fill="#ffffff" stroke="#2f6f4f" stroke-width="1"/>
+        <text x="475" y="163" text-anchor="middle" font-size="12" fill="#2b2a27">做完怎么检查</text>
+        <text x="475" y="192" text-anchor="middle" font-size="12" fill="#6b6862">整本内容进黑板</text>
+
+        <path d="M558 125 L610 125" stroke="#b4652a" stroke-width="1.5" fill="none" marker-end="url(#f)"/>
+        <rect x="618" y="60" width="80" height="130" rx="10" fill="#fbf0e6" stroke="#b4652a" stroke-width="1"/>
+        <text x="658" y="88" text-anchor="middle" font-size="12" font-weight="600" fill="#2b2a27">附录</text>
+        <text x="658" y="110" text-anchor="middle" font-size="11" fill="#6b6862">模板</text>
+        <text x="658" y="130" text-anchor="middle" font-size="11" fill="#6b6862">脚本</text>
+        <text x="658" y="150" text-anchor="middle" font-size="11" fill="#6b6862">细则</text>
+        <text x="658" y="176" text-anchor="middle" font-size="11" fill="#b4652a">用到才翻</text>
+
+        <defs>
+          <marker id="e" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="#2f6f4f" stroke-width="1.5" stroke-linecap="round"/>
+          </marker>
+          <marker id="f" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="#b4652a" stroke-width="1.5" stroke-linecap="round"/>
+          </marker>
+        </defs>
+      </svg>
+      <figcaption>图 1：Skill 的关键是"平时只露书名，用到才翻开"</figcaption>
+    </figure>
+
+    <div class="warn">
+      <strong>这个比喻在哪里不准：</strong>人会真正"学会"手册里的内容，下次不用看也记得。AI 不会——每次对话它都要重新翻开读一遍，并没有真的把知识装进脑子里。Skill 省的是<strong>你重复交代的功夫</strong>，不是模型的记忆。
+    </div>
+  </section>
+
+  <section>
+    <h2>它怎么工作</h2>
+
+    <h3>一个 Skill 就是一个文件夹</h3>
+    <p>最小只要一个文件 <code>SKILL.md</code>。讲究一点的话，里面还能放脚本、参考资料和模板：</p>
+<pre><code>my-skill/
+├── SKILL.md          # 必须有：说明这个技能怎么用
+├── scripts/          # 可选：可以被直接运行的脚本
+├── references/       # 可选：用到才读的详细资料
+└── assets/           # 可选：模板、配置等固定素材</code></pre>
+
+    <h3>文件开头的那几行很重要</h3>
+    <p><code>SKILL.md</code> 的最上面必须有一小段 YAML 元数据，其中 <code>name</code> 和 <code>description</code> 是<strong>必填</strong>的。名字只能用小写字母、数字和连字符，还要和文件夹同名；描述要写清"这个技能干什么、什么时候该用它"。</p>
+<pre><code>---
+name: my-skill
+description: 干什么活，以及什么时候该用它
+---
+
+（下面是正文：步骤、注意事项、检查清单）</code></pre>
+
+    <h3>三级加载：省黑板的关键</h3>
+    <figure>
+      <svg viewBox="0 0 720 260" width="100%" role="img" xmlns="http://www.w3.org/2000/svg">
+        <title>Skill 的三级渐进式加载</title>
+        <desc>第一级只加载名字和描述，第二级在触发后加载正文，第三级按需加载脚本和参考资料</desc>
+
+        <rect x="30" y="30" width="660" height="58" rx="10" fill="#eaf1f8" stroke="#3a5f8a" stroke-width="1"/>
+        <text x="52" y="54" font-size="14" font-weight="600" fill="#2b2a27">第 1 级：招牌（一直挂着）</text>
+        <text x="52" y="74" font-size="12" fill="#6b6862">只装名字 + 描述，每个技能约 100 个 token —— 装 20 个也不怎么占地方</text>
+
+        <path d="M360 92 L360 116" stroke="#3a5f8a" stroke-width="1.5" fill="none" marker-end="url(#g)"/>
+        <text x="430" y="110" font-size="12" fill="#6b6862">任务对上了，触发</text>
+
+        <rect x="30" y="122" width="660" height="58" rx="10" fill="#eaf3ee" stroke="#2f6f4f" stroke-width="1.5"/>
+        <text x="52" y="146" font-size="14" font-weight="600" fill="#2b2a27">第 2 级：正文（触发后才读进来）</text>
+        <text x="52" y="166" font-size="12" fill="#6b6862">SKILL.md 全文，官方建议控制在 5000 token 以内、500 行以内</text>
+
+        <path d="M360 184 L360 208" stroke="#2f6f4f" stroke-width="1.5" fill="none" marker-end="url(#g)"/>
+        <text x="430" y="202" font-size="12" fill="#6b6862">正文里提到了某个文件</text>
+
+        <rect x="30" y="214" width="660" height="40" rx="10" fill="#fbf0e6" stroke="#b4652a" stroke-width="1"/>
+        <text x="52" y="232" font-size="14" font-weight="600" fill="#2b2a27">第 3 级：脚本 / 参考资料 / 模板</text>
+        <text x="52" y="248" font-size="12" fill="#6b6862">用到哪个读哪个；脚本只把运行结果拿回来，代码本身不进黑板</text>
+
+        <defs>
+          <marker id="g" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="#2f6f4f" stroke-width="1.5" stroke-linecap="round"/>
+          </marker>
+        </defs>
+      </svg>
+      <figcaption>图 2：正因为有这三级，一个 Skill 能附带多少资料几乎不受限制</figcaption>
+    </figure>
+
+    <div class="warn">
+      <strong>最妙的在第三级：</strong>模型运行一个脚本时，读进黑板的是<strong>运行结果</strong>，而不是脚本本身的代码。所以让模型"跑一段排序程序"，比让它"一个个数着排序"便宜得多，也更不容易出错。
+    </div>
+  </section>
+
+  <section>
+    <h2>用在哪儿：给 PDF 填表的技能</h2>
+    <p>AI 其实挺懂 PDF 的，但直接<strong>动手改</strong>（比如填写一张申请表）就不太行。Anthropic 举的例子是：他们为此做了一个 PDF 技能。</p>
+    <ol>
+      <li>开头写明"处理 PDF 文件、提取表格、合并文档时使用"</li>
+      <li>正文给出提取文字的标准做法，以及该用哪个工具库</li>
+      <li>正文只留主干，把"怎么填表单"的细节单独放进 <code>forms.md</code></li>
+      <li>附带一个现成脚本，用来读出 PDF 里有哪些待填的空</li>
+    </ol>
+    <p>结果是：用户只是说"帮我填这份表"，模型就知道该翻哪本手册、该跑哪个脚本；而<strong>填表细则和脚本代码平时一点黑板都不占</strong>。</p>
+  </section>
+
+  <section>
+    <h2>容易搞混的四件事</h2>
+    <table>
+      <tr><th style="width:120px">名字</th><th>是什么</th><th>关键区别</th></tr>
+      <tr><td><strong>Skill</strong></td><td>文件夹里的一整套说明 + 资源</td><td>长期复用、按需加载、可以带脚本</td></tr>
+      <tr><td>提示词 Prompt</td><td>这一次对话里说的话</td><td>一次性，下次要重新说</td></tr>
+      <tr><td>工具 Tool</td><td>真正产生动作的"手"</td><td>工具负责做，Skill 负责告诉它<strong>什么时候做、按什么顺序做</strong></td></tr>
+      <tr><td>上下文 Context</td><td>黑板本身</td><td>Skill 是<strong>往黑板上放的内容</strong>，不是黑板</td></tr>
+    </table>
+
+    <h3>使用边界（几件容易踩的坑）</h3>
+    <ul>
+      <li><strong>描述写不好，技能就永远不会被用上</strong>：模型是靠 <code>description</code> 判断该不该翻这本手册的，写得太泛就永远触发不了。</li>
+      <li><strong>正文写太长会浪费黑板</strong>：一旦触发，整篇都会读进来。细则应该拆到单独文件里。</li>
+      <li><strong>它不是"学会"，是"查阅"</strong>：模型每次仍要重新读一遍，并不会记住。</li>
+      <li><strong>不是所有 AI 产品都支持</strong>：Skill 已经是一个开放的规范，但各家支持程度不同，附带的脚本能否运行也取决于具体环境。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>自测三题</h2>
+    <div class="q"><strong>1.</strong> 有人说"Skill 就是保存起来的提示词"。这个说法差在哪？</div>
+    <details><summary>看答案</summary><p>提示词每次都要重新说、且一次性全部进黑板。Skill 是<strong>文件夹</strong>：平时只占约 100 个 token 的招牌，触发后才读正文，脚本和细则还能再往后拖；而且它可以附带能真正运行的脚本。</p></details>
+
+    <div class="q"><strong>2.</strong> 你装了 30 个 Skill，为什么黑板没有被塞爆？</div>
+    <details><summary>看答案</summary><p>因为平时只加载每个 Skill 的<strong>名字和描述</strong>（约 100 个 token），正文和附带文件都是用到了才读进来。</p></details>
+
+    <div class="q"><strong>3.</strong> 你的 Skill 一直没被自动用上，最可能是什么原因？</div>
+    <details><summary>看答案</summary><p>最常见的是 <code>description</code> 写得太笼统，模型看不出它和当前任务的关系。描述里应该写清"干什么活"和"什么情况下该用"，并带上容易被匹配到的关键词。</p></details>
+  </section>
+
+  <section>
+    <h2>资料来源</h2>
+    <ol class="src">
+      <li>Anthropic，《Equipping agents for the real world with Agent Skills》<br>
+        <a href="https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills">https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills</a><br>
+        <em>支撑结论：</em>Skill 是包含 SKILL.md 的目录，frontmatter 必填 name 与 description；渐进式披露三级加载；PDF 技能与 forms.md 的实例；脚本只回传结果不进上下文。</li>
+      <li>Anthropic 官方开发者文档，《Agent Skills Overview》<br>
+        <a href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview">https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview</a><br>
+        <em>支撑结论：</em>第 1 级元数据每个约 100 token、第 2 级正文建议 5000 token 以内、第 3 级资源按需加载；Skill 与一次性提示词的区别。</li>
+      <li>Microsoft Learn，《Agent Skills》<br>
+        <a href="https://learn.microsoft.com/en-us/agent-framework/agents/skills">https://learn.microsoft.com/en-us/agent-framework/agents/skills</a><br>
+        <em>支撑结论：</em>Skill 目录结构（scripts / references / assets）；name 的命名规则（小写、连字符、与目录同名）；description 上限 1024 字符。</li>
+      <li>Open Agent Skills，《Core Concepts》<br>
+        <a href="https://openagentskills.dev/docs/concepts">https://openagentskills.dev/docs/concepts</a><br>
+        <em>支撑结论：</em>SKILL.md 建议控制在 500 行以内，详细资料拆到 references；描述要写清何时使用，便于被检索到。</li>
+    </ol>
+  </section>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>三个概念的关系 · Agent / 上下文 / Skill</title>
+<style>
+  :root{
+    --ink:#2b2a27; --muted:#6b6862; --line:#e6e2d9;
+    --paper:#fbfaf6; --card:#ffffff;
+    --brand:#2f6f4f; --brand-soft:#eaf3ee;
+    --accent:#b4652a; --accent-soft:#fbf0e6;
+    --note:#3a5f8a; --note-soft:#eaf1f8;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:16px;line-height:1.75}
+  .wrap{max-width:860px;margin:0 auto;padding:40px 22px 64px}
+  h1{font-size:29px;margin:0 0 6px}
+  .sub{color:var(--muted);margin:0 0 30px}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin-bottom:20px}
+  h2{font-size:19px;margin:0 0 14px;padding-left:11px;border-left:4px solid var(--brand)}
+  h3{font-size:16px;margin:20px 0 8px}
+  p{margin:10px 0}
+  ul,ol{padding-left:22px;margin:8px 0}
+  li{margin-bottom:6px}
+  table{width:100%;border-collapse:collapse;margin-top:10px;font-size:15px}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+  th{background:var(--brand-soft);font-weight:600}
+  .lead{background:var(--accent-soft);border-radius:10px;padding:14px 18px;font-size:16px;margin-bottom:22px}
+  .warn{background:var(--note-soft);border-left:4px solid var(--note);border-radius:8px;padding:12px 15px;margin-top:14px}
+  figure{margin:18px 0;text-align:center}
+  figcaption{font-size:13px;color:var(--muted);margin-top:8px}
+  a{color:var(--note);word-break:break-all}
+  ol.src{padding-left:22px;font-size:15px}
+  ol.src li{margin-bottom:9px}
+  .back{font-size:14px;margin-bottom:18px}
+  .back a{color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="back"><a href="index.html">← 返回学习资料目录</a></p>
+
+  <h1>三个概念的关系</h1>
+  <p class="sub">Agent、大模型的上下文、Skill 是怎么配合在一起的</p>
+
+  <div class="lead">
+    <strong>一句话记住：</strong>Agent 是干活的人，上下文是他面前那块<strong>大小固定</strong>的工作台，Skill 是他手边那摞<strong>按需取用</strong>的岗位手册。
+  </div>
+
+  <section>
+    <h2>一、各管一摊</h2>
+    <table>
+      <tr><th style="width:110px">概念</th><th>回答什么问题</th><th style="width:150px">比喻</th><th>它不负责什么</th></tr>
+      <tr><td><strong>Agent</strong></td><td>谁来决定下一步、谁去动手</td><td>会自己规划的小助手</td><td>不负责长期记忆，也不自带行业经验</td></tr>
+      <tr><td><strong>上下文</strong></td><td>此刻它能看见多少东西</td><td>固定大小的工作台</td><td>不是它的知识储备，对话结束就清空</td></tr>
+      <tr><td><strong>Skill</strong></td><td>这件事该按什么步骤做</td><td>手边的岗位手册</td><td>不会自己执行，要被翻开才起作用</td></tr>
+    </table>
+    <p>串起来就是：<strong>Agent 在上下文这块工作台上干活，干到不会的地方，就去翻 Skill 这本手册。</strong></p>
+  </section>
+
+  <section>
+    <h2>二、关系图</h2>
+    <figure>
+      <svg viewBox="0 0 720 400" width="100%" role="img" xmlns="http://www.w3.org/2000/svg">
+        <title>Agent、上下文与 Skill 的协同关系</title>
+        <desc>Agent 的想做看循环依赖上下文工作台，Skill 在被触发时把做法写到工作台上，工作台写满后会被压缩或遗忘</desc>
+
+        <rect x="24" y="44" width="176" height="176" rx="12" fill="#f7f5ef" stroke="#b4652a" stroke-width="1"/>
+        <text x="112" y="68" text-anchor="middle" font-size="14" font-weight="600" fill="#2b2a27">Skill：岗位手册</text>
+        <rect x="38" y="80" width="148" height="34" rx="7" fill="#eaf1f8" stroke="#3a5f8a" stroke-width="1"/>
+        <text x="112" y="101" text-anchor="middle" font-size="12" fill="#2b2a27">① 招牌：约 100 token</text>
+        <rect x="38" y="122" width="148" height="34" rx="7" fill="#eaf3ee" stroke="#2f6f4f" stroke-width="1.5"/>
+        <text x="112" y="143" text-anchor="middle" font-size="12" fill="#2b2a27">② 正文：触发才读</text>
+        <rect x="38" y="164" width="148" height="34" rx="7" fill="#fbf0e6" stroke="#b4652a" stroke-width="1"/>
+        <text x="112" y="185" text-anchor="middle" font-size="12" fill="#2b2a27">③ 细则 / 脚本：用到才读</text>
+        <text x="112" y="216" text-anchor="middle" font-size="12" fill="#6b6862">大部分时间不占工作台</text>
+
+        <path d="M204 139 C 258 176, 300 196, 344 224" stroke="#2f6f4f" stroke-width="1.5" fill="none" marker-end="url(#m)"/>
+        <text x="238" y="176" font-size="11" fill="#2f6f4f">被触发时</text>
+        <text x="238" y="192" font-size="11" fill="#2f6f4f">把做法写上来</text>
+
+        <rect x="250" y="44" width="104" height="48" rx="10" fill="#eaf3ee" stroke="#2f6f4f" stroke-width="1.5"/>
+        <text x="302" y="64" text-anchor="middle" font-size="14" font-weight="600" fill="#2b2a27">① 想</text>
+        <text x="302" y="82" text-anchor="middle" font-size="11" fill="#6b6862">下一步做什么</text>
+
+        <rect x="404" y="44" width="104" height="48" rx="10" fill="#eaf3ee" stroke="#2f6f4f" stroke-width="1.5"/>
+        <text x="456" y="64" text-anchor="middle" font-size="14" font-weight="600" fill="#2b2a27">② 做</text>
+        <text x="456" y="82" text-anchor="middle" font-size="11" fill="#6b6862">调用工具</text>
+
+        <rect x="558" y="44" width="104" height="48" rx="10" fill="#eaf3ee" stroke="#2f6f4f" stroke-width="1.5"/>
+        <text x="610" y="64" text-anchor="middle" font-size="14" font-weight="600" fill="#2b2a27">③ 看</text>
+        <text x="610" y="82" text-anchor="middle" font-size="11" fill="#6b6862">读回结果</text>
+
+        <path d="M358 68 L398 68" stroke="#2f6f4f" stroke-width="1.5" fill="none" marker-end="url(#m)"/>
+        <path d="M512 68 L552 68" stroke="#2f6f4f" stroke-width="1.5" fill="none" marker-end="url(#m)"/>
+        <path d="M610 40 L610 22 L302 22 L302 40" stroke="#2f6f4f" stroke-width="1.5" fill="none" stroke-dasharray="5 4" marker-end="url(#m)"/>
+        <text x="456" y="16" text-anchor="middle" font-size="11" fill="#6b6862">没做完就回到第 ① 步</text>
+        <text x="360" y="26" font-size="11" fill="#6b6862">Agent：围着目标转圈</text>
+
+        <rect x="404" y="112" width="104" height="40" rx="8" fill="#ffffff" stroke="#2f6f4f" stroke-width="1"/>
+        <text x="456" y="129" text-anchor="middle" font-size="12" font-weight="600" fill="#2b2a27">工具</text>
+        <text x="456" y="145" text-anchor="middle" font-size="11" fill="#6b6862">搜索 / 读写 / 跑代码</text>
+        <path d="M456 96 L456 110" stroke="#2f6f4f" stroke-width="1.5" fill="none" marker-end="url(#m)"/>
+        <path d="M456 156 L456 224" stroke="#2f6f4f" stroke-width="1.5" fill="none" marker-end="url(#m)"/>
+        <text x="466" y="196" font-size="11" fill="#2f6f4f">返回的结果堆上去</text>
+
+        <path d="M610 96 L610 224" stroke="#2f6f4f" stroke-width="1.5" fill="none" marker-end="url(#m)"/>
+        <path d="M302 224 L302 96" stroke="#b4652a" stroke-width="1.5" fill="none" marker-end="url(#n)"/>
+        <text x="316" y="160" font-size="11" fill="#b4652a">每一轮都要</text>
+        <text x="316" y="176" font-size="11" fill="#b4652a">从头读一遍工作台</text>
+
+        <rect x="24" y="228" width="672" height="96" rx="12" fill="#fbfaf6" stroke="#2b2a27" stroke-width="1.5"/>
+        <text x="360" y="220" text-anchor="middle" font-size="14" font-weight="600" fill="#2b2a27">上下文窗口：一块大小固定的工作台</text>
+
+        <rect x="36" y="240" width="110" height="72" rx="8" fill="#eaf1f8" stroke="#3a5f8a" stroke-width="1"/>
+        <text x="91" y="272" text-anchor="middle" font-size="12" fill="#2b2a27">系统规则</text>
+        <rect x="150" y="240" width="170" height="72" rx="8" fill="#eaf3ee" stroke="#2f6f4f" stroke-width="1"/>
+        <text x="235" y="272" text-anchor="middle" font-size="12" fill="#2b2a27">前面几步的记录</text>
+        <rect x="324" y="240" width="180" height="72" rx="8" fill="#fbf0e6" stroke="#b4652a" stroke-width="1"/>
+        <text x="414" y="272" text-anchor="middle" font-size="12" fill="#2b2a27">Skill 写进来的做法</text>
+        <rect x="508" y="240" width="112" height="72" rx="8" fill="#ffffff" stroke="#2f6f4f" stroke-width="1" stroke-dasharray="4 3"/>
+        <text x="564" y="272" text-anchor="middle" font-size="12" fill="#2b2a27">正在生成</text>
+        <rect x="624" y="240" width="60" height="72" rx="8" fill="#f1efe8" stroke="#b4b2a9" stroke-width="1"/>
+        <text x="654" y="272" text-anchor="middle" font-size="11" fill="#6b6862">剩余</text>
+
+        <text x="360" y="348" text-anchor="middle" font-size="12" fill="#b4652a">工作台写满：最早的内容被挤出去，或者被压缩成摘要 —— Agent 就开始忘事</text>
+
+        <defs>
+          <marker id="m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="#2f6f4f" stroke-width="1.5" stroke-linecap="round"/>
+          </marker>
+          <marker id="n" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="#b4652a" stroke-width="1.5" stroke-linecap="round"/>
+          </marker>
+        </defs>
+      </svg>
+      <figcaption>图 1：Skill 决定"放什么上工作台"，上下文决定"能放多少"，Agent 决定"怎么用它"</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>三、重点一：上下文如何影响 Agent 的工作</h2>
+
+    <h3>1. 上下文就是 Agent 的记事本</h3>
+    <p>Agent 的循环是"想 → 做 → 看"。它看到的东西、想出来的计划，全写在上下文里。下一轮判断"下一步做什么"时，唯一能参考的就是工作台上的内容。<strong>上下文里有什么，Agent 就知道什么。</strong></p>
+
+    <h3>2. 工作台是累加的，所以越干越贵</h3>
+    <table>
+      <tr><th style="width:90px">轮次</th><th>工作台上的内容</th><th style="width:130px">这一轮要读的量</th></tr>
+      <tr><td>第 1 轮</td><td>目标 + 第 1 步结果</td><td>小</td></tr>
+      <tr><td>第 3 轮</td><td>目标 + 前 2 步全部结果</td><td>中</td></tr>
+      <tr><td>第 10 轮</td><td>目标 + 前 9 步全部结果</td><td>大</td></tr>
+    </table>
+    <p>所以 Agent 的步骤越多，后面每一步就越慢、越贵。</p>
+
+    <h3>3. 工作台写满，Agent 就开始犯糊涂</h3>
+    <table>
+      <tr><th style="width:160px">上下文的状态</th><th>Agent 的表现</th></tr>
+      <tr><td>还很空</td><td>判断准确，记得住一开始定下的要求</td></tr>
+      <tr><td>用到七八成</td><td>开始偶尔重复做已经做过的动作</td></tr>
+      <tr><td>写满</td><td>最早的要求被挤出去，忘了最初的目标，或卡在某一步反复转圈</td></tr>
+      <tr><td>又长又杂</td><td>即使没写满，准确率也会下降（context rot）；关键信息埋在中间最容易被漏掉</td></tr>
+    </table>
+
+    <h3>4. 工程上的三种对策</h3>
+    <table>
+      <tr><th style="width:100px">对策</th><th>做法</th><th>对 Agent 的作用</th></tr>
+      <tr><td><strong>压缩</strong></td><td>快满时把前面的对话总结成一小段，带着摘要重新开始</td><td>保住目标不丢，让 Agent 继续跑下去</td></tr>
+      <tr><td><strong>分块</strong></td><td>长文档切成几段分别处理，最后合并</td><td>避免一次性把工作台塞爆</td></tr>
+      <tr><td><strong>隔离</strong></td><td>派一个"子代理"去做探索性的活，只把结论带回来</td><td>不让过程中的垃圾信息污染主工作台</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>四、重点二：Skill 如何沉淀可复用的任务知识</h2>
+
+    <h3>1. 沉淀的是"怎么做"，不是"是什么"</h3>
+    <p>Agent 缺的往往不是知识，而是<strong>程序性知识</strong>——这件事具体按什么流程办、先做什么后做什么、做完怎么检查。Anthropic 的比方是：给 Skill 写内容，就像给新入职的同事写一本入职指南。</p>
+    <table>
+      <tr><th style="width:130px">沉淀内容</th><th>举例</th></tr>
+      <tr><td><strong>流程步骤</strong></td><td>先查来源，再写解释，最后自检</td></tr>
+      <tr><td><strong>判断标准</strong></td><td>什么情况下用这个做法，什么情况下不用</td></tr>
+      <tr><td><strong>质量门槛</strong></td><td>交付前必须逐条检查哪几项</td></tr>
+      <tr><td><strong>现成资源</strong></td><td>模板、脚本、参考资料</td></tr>
+    </table>
+
+    <h3>2. "三级加载"让沉淀几乎不占成本</h3>
+    <table>
+      <tr><th style="width:220px">级别</th><th>什么时候进工作台</th><th style="width:150px">占多少</th></tr>
+      <tr><td>第 1 级：名字 + 描述</td><td>一直挂着</td><td>每个约 100 token</td></tr>
+      <tr><td>第 2 级：SKILL.md 正文</td><td>被触发时</td><td>建议 5000 token 以内</td></tr>
+      <tr><td>第 3 级：脚本 / 模板 / 细则</td><td>用到时才读</td><td>几乎不占</td></tr>
+    </table>
+    <div class="warn">
+      这是 Skill 设计与上下文之间最精巧的一处配合：<strong>你可以沉淀海量的任务知识，而平时它们一点工作台都不占</strong>。知识存在文件夹里，用时才搬上来；脚本甚至只把运行结果带回来，代码本身不上工作台。
+    </div>
+
+    <h3>3. 沉淀的闭环</h3>
+    <ul>
+      <li>第一次做某类任务 → 边做边摸索</li>
+      <li>把做法写成 SKILL.md → 步骤 + 标准 + 检查清单</li>
+      <li>以后再遇到 → 自动触发，不用重新交代</li>
+      <li>发现新问题或更好的做法 → 回头改进 Skill 本身</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>五、三者协同：一个完整的例子</h2>
+    <p>任务：用本仓库的 Skill 生成一份"光合作用"的学习资料。</p>
+    <table>
+      <tr><th style="width:150px">环节</th><th>谁在起作用</th><th>发生了什么</th></tr>
+      <tr><td>1. 识别任务</td><td>Skill 第 1 级</td><td>模型看到 <code>concept-learning-kit</code> 的描述与"学习一个概念"匹配</td></tr>
+      <tr><td>2. 装载做法</td><td>Skill 第 2 级 → 上下文</td><td>正文被读上工作台：先找类比、再查来源、按固定结构输出</td></tr>
+      <tr><td>3. 取用模板</td><td>Skill 第 3 级 → 上下文</td><td>要写 HTML 时，才去读 <code>references/html-skeleton.md</code></td></tr>
+      <tr><td>4. 执行循环</td><td>Agent + 工具</td><td>检索来源 → 读文件 → 写 HTML → 打开检查，不对就改</td></tr>
+      <tr><td>5. 记录过程</td><td>上下文</td><td>每一步的想法和检索结果堆在工作台上，供下一步参考</td></tr>
+      <tr><td>6. 收尾</td><td>上下文管理</td><td>任务很长时压缩历史，避免工作台写满导致质量下降</td></tr>
+    </table>
+    <p><strong>Skill 解决"会不会做"，上下文解决"记得住多少"，Agent 解决"能不能自己跑完"。</strong></p>
+  </section>
+
+  <section>
+    <h2>六、缺一个会怎样</h2>
+    <ul>
+      <li><strong>没有上下文</strong>：Agent 每一步都是第一次，会原地打转。</li>
+      <li><strong>没有 Skill</strong>：Agent 每次都要你从零教一遍，而且做法不统一。</li>
+      <li><strong>没有 Agent</strong>：Skill 只是一本没人翻的手册，上下文也只是一块没人用的黑板。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>七、资料来源</h2>
+    <ol class="src">
+      <li>Anthropic，《Building Effective Agents》<br>
+        <a href="https://www.anthropic.com/engineering/building-effective-agents">https://www.anthropic.com/engineering/building-effective-agents</a><br>
+        <em>支撑：</em>Agent 循环依赖"增强型大模型"的检索、工具与记忆；简单方案优先。</li>
+      <li>Anthropic 官方开发者文档，《Context windows》<br>
+        <a href="https://platform.claude.com/docs/en/build-with-claude/context-windows">https://platform.claude.com/docs/en/build-with-claude/context-windows</a><br>
+        <em>支撑：</em>上下文随轮次累加；token 增长导致 context rot；长对话需压缩管理。</li>
+      <li>Anthropic，《Equipping agents for the real world with Agent Skills》<br>
+        <a href="https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills">https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills</a><br>
+        <em>支撑：</em>Skill 沉淀程序性知识；三级渐进式披露；脚本只回传结果不上上下文。</li>
+      <li>Anthropic 官方开发者文档，《Agent Skills Overview》<br>
+        <a href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview">https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview</a><br>
+        <em>支撑：</em>三级加载各自的 token 开销；Skill 与一次性提示词的区别。</li>
+    </ol>
+  </section>
+
+</div>
+</body>
+</html>

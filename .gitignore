@@ -1,0 +1,46 @@
+# 密钥与凭证 —— 绝不上传
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa
+id_rsa.pub
+id_ed25519
+id_ed25519.pub
+*.token
+*credentials*
+*secret*
+*.keystore
+gh_token*
+github_token*
+
+# 云与工具的配置目录（可能含账号信息）
+.aws/
+.azure/
+.ssh/
+.config/gh/
+
+# 编辑器与系统
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# 依赖与构建产物
+node_modules/
+dist/
+build/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# 日志
+*.log
+npm-debug.log*
+
+# 本地草稿（不进版本库）
+tmp/
+temp/
